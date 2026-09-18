@@ -2,11 +2,9 @@
 
 import json
 
-HEAD
 votos = {}       # {nombre_votante: candidato}
 historial = []
 
-HEAD
 
 def registrar_voto(nombre, candidato):
     """Registra el voto de una persona. Evita votos duplicados."""
@@ -19,13 +17,11 @@ def registrar_voto(nombre, candidato):
 
 # sistema-votacion/votacion.py
 import json
-feature/reiniciar-votacion
+
 
 votos = {}
 historial = []
 
-
-HEAD
 def ver_resultados():
     """Muestra los resultados con conteo y porcentaje."""
     if not votos:
@@ -41,7 +37,7 @@ def ver_resultados():
     for candidato, cantidad in conteo.items():
         porcentaje = (cantidad / total) * 100
         print(f"  {candidato}: {cantidad} votos ({porcentaje:.2f}%)")
-feature/ver-resultados
+
 def reiniciar_votacion():
     """Guarda el historial en archivo y limpia la votación actual."""
     global votos
@@ -55,4 +51,23 @@ def reiniciar_votacion():
 
     votos = {}
     print("🔄 Votación reiniciada correctamente.")
-feature/reiniciar-votacion
+
+    def mostrar_ganador():
+     """Muestra el candidato con más votos."""
+    if not votos:
+        print("⚠️  No hay votos registrados para determinar un ganador.")
+        return None
+
+    conteo = {}
+    for candidato in votos.values():
+        conteo[candidato] = conteo.get(candidato, 0) + 1
+
+    max_votos = max(conteo.values())
+    ganadores = [c for c, v in conteo.items() if v == max_votos]
+
+    if len(ganadores) == 1:
+        print(f"\n🏆 Ganador: {ganadores[0]} con {max_votos} votos.")
+    else:
+        print(f"\n🤝 Empate entre: {', '.join(ganadores)} con {max_votos} votos cada uno.")
+    return ganadores
+
